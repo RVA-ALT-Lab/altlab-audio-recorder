@@ -1,3 +1,4 @@
+
 // set up basic variables for app
 
 var record = document.querySelector('.record');
@@ -12,6 +13,7 @@ stop.disabled = true;
 
 // visualiser setup - create web audio api context and canvas
 
+var audioCtx = new (window.AudioContext || webkitAudioContext)();
 var canvasCtx = canvas.getContext("2d");
 
 //main block for doing the audio recording
@@ -28,7 +30,6 @@ if (navigator.mediaDevices.getUserMedia) {
     visualize(stream);
 
     record.onclick = function() {
-      var audioCtx = new (window.AudioContext || webkitAudioContext)();
       mediaRecorder.start();
       console.log(mediaRecorder.state);
       console.log("recorder started");
@@ -127,7 +128,7 @@ function visualize(stream) {
   source.connect(analyser);
   //analyser.connect(audioCtx.destination);
 
-  draw()
+  draw();
 
   function draw() {
     WIDTH = canvas.width

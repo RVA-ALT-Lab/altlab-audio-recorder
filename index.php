@@ -2,7 +2,7 @@
 /*
 Plugin Name: ALT Lab Audio Recorder
 Plugin URI:  https://github.com/
-Description: For stuff that's magical
+Description: integrates recorder demo from Mozilla into gravity forms
 Version:     1.0
 Author:      ALT Lab
 Author URI:  http://altlab.vcu.edu
@@ -15,16 +15,14 @@ Text Domain: my-toolset
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 
-add_action('wp_enqueue_scripts', 'prefix_load_scripts');
-
 function prefix_load_scripts() {                             
-    wp_enqueue_script('audio-recorder-install', plugin_dir_url( __FILE__) . 'js/install.js', '', '1', true); 
+    //wp_enqueue_script('audio-recorder-install', plugin_dir_url( __FILE__) . 'js/install.js', '', '1', true); 
     wp_enqueue_script('audio-recorder-polyfill', plugin_dir_url( __FILE__) . 'js/mediaDevices-getUserMedia-polyfill.js', 'audio-recorder-install', '1', true); 
     wp_enqueue_script('audio-recorder', plugin_dir_url( __FILE__) . 'js/app.js', 'audio-recorder-install', '1', true); 
     wp_enqueue_style( 'audio-recorder-css', plugin_dir_url( __FILE__) . 'css/audio-recorder-main.css');
+    //wp_localize_script('audio-recorder-install', 'WPURLS', array( plugin_dir_path( __FILE__ ), 10, 3 ));
 }
-
-
+add_action( 'gform_enqueue_scripts', 'prefix_load_scripts', 10, 2 );
 
 //add custom field to gravity forms 
 
@@ -92,6 +90,7 @@ function gf_custom_class( $classes, $field, $form ) {
     }
     return $classes;
 }
+
 
 
 

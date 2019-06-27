@@ -1,4 +1,4 @@
-var manifest_url = location.href + 'manifest.webapp';
+var manifest_url = WPURLS + 'manifest.webapp';
 
 function install(ev) {
   ev.preventDefault();
